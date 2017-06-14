@@ -37,10 +37,10 @@ def call(body) {
   print "microserviceBuilderPipeline: config = ${config}"
 
   def image = config.image
-  def maven = (config.mavenImage == null) ? 'maven:3.5.0-jdk-8' : config.mavenImage
-  def docker = (config.dockerImage == null) ? 'docker' : config.dockerImage
-  def kubectl = (config.kubectlImage == null) ? 'lachlanevenson/k8s-kubectl:v1.6.0' : config.kubectlImage
-  def mvnCommands = (config.mvnCommands == null) ? 'clean package' : config.mvnCommands
+  def maven = config.mavenImage ?: 'maven:3.5.0-jdk-8'
+  def docker = config.dockerImage ?: 'docker'
+  def kubectl = config.kubectlImage ?: 'lachlanevenson/k8s-kubectl:v1.6.0'
+  def mvnCommands = config.mvnCommands ?: 'clean package'
   def registry = System.getenv("REGISTRY").trim()
   def registrySecret = System.getenv("REGISTRY_SECRET").trim()
   def build = (config.build ?: System.getenv ("BUILD")).trim().toLowerCase() == 'true'
