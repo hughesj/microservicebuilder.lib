@@ -45,7 +45,7 @@ def call(body) {
   def registrySecret = System.getenv("REGISTRY_SECRET").trim()
   def build = (config.build ?: System.getenv ("BUILD")).trim().toLowerCase() == 'true'
   def deploy = (config.deploy ?: System.getenv ("DEPLOY")).trim().toLowerCase() == 'true'
-  def namespace = config.namespace ?: (System.getenv("NAMESPACE") ?: "").trim()
+  def namespace = config.namespace ?: System.getenv("NAMESPACE")?.trim()
 
   // Extra elvis here to cope with env var being absent until pipeline chart catches up
   def deployBranch = config.deployBranch ?: System.getenv("DEFAULT_DEPLOY_BRANCH")?.trim() ?: 'master'
